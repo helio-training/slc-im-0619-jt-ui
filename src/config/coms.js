@@ -1,1 +1,1 @@
-export const LEADS_API = process.env.REACT_APP_LEADS_API || "http://localhost:4000/leads/"
+export const LEADS_API = process.env.REACT_APP_LEADS_API || "http://localhost:4000"
