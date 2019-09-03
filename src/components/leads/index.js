@@ -15,7 +15,11 @@ class Leads extends Component {
         //     .catch(console.log);
         fetch(`${LEADS_API}/leads`)
           .then(response => response.json())
-          .then(body => body.map(jsonLead => <Lead leadData={jsonLead} />))
+          .then(body =>
+            body.map(jsonLead => (
+              <Lead reload={this.getLeads} leadData={jsonLead} />
+            ))
+          )
           .then(components => this.setState({ leads: components }))
           .catch(console.log);
     }

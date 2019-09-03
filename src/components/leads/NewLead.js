@@ -16,7 +16,8 @@ class NewLead extends Component {
     })
       .then(response => response.json())
       .then(console.log)
-      .then(() => this.props.reload());
+      .then(() => this.props.reload())
+      .catch(console.log);
   };
 
   //   handleChange = event => {

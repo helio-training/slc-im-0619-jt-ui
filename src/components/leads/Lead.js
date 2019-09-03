@@ -1,12 +1,13 @@
 import React from "react"
+import UpdateLead from "./UpdateLead"
 
-const Lead = ({ leadData }) => {
+const Lead = ({ leadData, reload }) => {
     return (
-    <div id={leadData._id}>
-      position:  {leadData.position}
-
-    </div>
-    )
+      <div id={leadData._id}>
+        position: {leadData.position}
+        <UpdateLead reload={reload} lead={leadData} />
+      </div>
+    );
 }
 
 export default Lead
