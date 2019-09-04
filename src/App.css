@@ -30,4 +30,12 @@
   to {
     transform: rotate(360deg);
   }
+  
+}
+.flexbox{
+  display: flex;
+  flex-direction: column;
+}
+.flexbox * {
+  margin: 1px;
 }

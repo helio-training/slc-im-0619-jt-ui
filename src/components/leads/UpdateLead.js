@@ -1,26 +1,11 @@
-import React from "react";
-import Modal from "react-modal";
-import { LEADS_API } from "../../config/coms"
-
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)"
-  }
-};
-
-Modal.setAppElement("#root");
+import React, {Fragment} from "react";
+import { LEADS_API } from "../../config/coms";
 
 class UpdateLead extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      modalIsOpen: false,
       status: this.props.lead.status,
       position: this.props.lead.position,
       company: this.props.lead.company,
@@ -28,24 +13,19 @@ class UpdateLead extends React.Component {
       date_applied: this.props.lead.date_applied,
       updated_date: this.props.lead.updated_date,
       links: this.props.lead.links,
-      currentDate: (new Date()).toDateString()
+      currentDate: new Date().toDateString()
     };
-
-    this.afterOpenModal = this.afterOpenModal.bind(this);
   }
 
-  toggleModal = () => {
-    this.setState({ modalIsOpen: !this.state.modalIsOpen });
-  };
   handleChange = ({ target }) => {
     this.setState({ [target.name]: target.value });
   };
-  handleSubmit = (e) => {
-    e.preventDefault()
+  handleSubmit = e => {
+    e.preventDefault();
     //console.log(this.state)
 
-    let {modalIsOpen, currentDate, ...body} = this.state;
-    body.updated_date = currentDate
+    let { currentDate, ...body } = this.state;
+    body.updated_date = currentDate;
     fetch(`${LEADS_API}/leads/${this.props.lead._id}`, {
       method: "PUT",
       headers: {
@@ -55,31 +35,17 @@ class UpdateLead extends React.Component {
     })
       .then(response => response.json())
       .then(() => {
-          this.props.reload()
-          this.toggleModal()
-      }).catch(console.log)
-
-  }
-
-  afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    this.subtitle.style.color = "#f00";
-  }
+        this.props.closeModal();
+      })
+      .then(() => {
+        this.props.reload();
+      })
+      .catch(console.log);
+  };
 
   render() {
     return (
-      <div>
-        <button onClick={this.toggleModal}>Update dis leeeed</button>
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.toggleModal}
-          style={customStyles}
-          contentLabel="Update Lead"
-        >
-          <h2 ref={subtitle => (this.subtitle = subtitle)}>Update Lead</h2>
-
-          <form onSubmit={this.handleSubmit}>
+          <form className='flexbox' onSubmit={this.handleSubmit}>
             <input
               type="text"
               onChange={this.handleChange}
@@ -123,20 +89,16 @@ class UpdateLead extends React.Component {
               <option value="OTHER">Other</option>
             </select>
             date applied:
-            <input 
-                type="date"
-                value={this.state.date_applied}
-                onChange={this.handleChange}
-                name="date_applied"
+            <input
+              type="date"
+              value={this.state.date_applied}
+              onChange={this.handleChange}
+              name="date_applied"
             />
-            last updated: {this.state.updated_date} 
-            <input value={this.state.links} />
-            <button type="submit">Push me</button>
+            last updated: {this.state.updated_date}
+            {/* <input value={this.state.links} /> */}
+            <button type="submit">Update</button>
           </form>
-
-          <button onClick={this.toggleModal}>close</button>
-        </Modal>
-      </div>
     );
   }
 }
