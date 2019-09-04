@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React from "react";
 import { LEADS_API } from "../../config/coms";
 
 class UpdateLead extends React.Component {
@@ -45,7 +45,7 @@ class UpdateLead extends React.Component {
 
   render() {
     return (
-          <form className='flexbox' onSubmit={this.handleSubmit}>
+          <form className='flexbox-col' onSubmit={this.handleSubmit}>
             <input
               type="text"
               onChange={this.handleChange}

@@ -27,13 +27,13 @@ class Leads extends Component {
         this.getLeads()
     }
     render(){
-        return(
-            <>
-                Job Tracker
-                <NewLead reload = {this.getLeads}/>
-                our Leads array: {this.state.leads}
-            </>
-        )
+        return (
+          <>
+            Job Tracker
+            <NewLead reload={this.getLeads} />
+            <div className='flexbox-row'>{this.state.leads}</div>
+          </>
+        );
     }
 }
 

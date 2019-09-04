@@ -32,10 +32,23 @@
   }
   
 }
-.flexbox{
+.flexbox-col{
   display: flex;
   flex-direction: column;
 }
-.flexbox * {
+.flexbox-col > * {
   margin: 1px;
+}
+
+.flexbox-row {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.flexbox-row > * {
+  border-style: solid;
+  border-radius: 10%;
+  box-shadow: 3px 5px #282c34;
+  margin: 1em;
+  width: 12em;
 }
